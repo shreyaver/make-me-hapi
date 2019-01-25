@@ -9,10 +9,12 @@ server.route({
   method: 'GET',
   handler: (request, h) => 'Hello hapi',
 });
-const startListening = async () => {
-  await server.start();
-  console.log('Server running at:', server.info.uri);
-};
-startListening();
+if (!module.parent) {
+  const startListening = async () => {
+    await server.start();
+    console.log('Server running at:', server.info.uri);
+  };
+  startListening();
+}
 
 module.exports = server;
