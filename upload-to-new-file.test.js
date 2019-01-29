@@ -3,8 +3,8 @@ const fs = require('fs');
 const streamToPromise = require('stream-to-promise');
 const server = require('./upload-to-new-file');
 
-describe('server at path "/login" with payload {isGuest: true, accessToken: <string>}', () => {
-  it('should return "login successful"', async () => {
+describe('server at path "/upload"', () => {
+  it('should create and store file on file upload', async () => {
     const fileStream = fs.createReadStream('fileToUpload.txt');
     const form = new FormData();
     form.append('description', 'This file will be uploaded');
@@ -18,10 +18,10 @@ describe('server at path "/login" with payload {isGuest: true, accessToken: <str
         headers: form.getHeaders(),
       };
     });
-    if (!fs.existsSync('./upload destination/newfile.txt')) {
+    if (!fs.existsSync('./upload-destination/newfile.txt')) {
       const serverResponse = await server.inject(options);
       console.log(serverResponse.result);
-      expect(fs.existsSync('./upload destination/newfile.txt')).toEqual(true);
+      expect(fs.existsSync('./upload-destination/newfile.txt')).toEqual(true);
     //   expect(serverResponse.result).toEqual(JSON.stringify({
     //     description: 'This file will be uploaded',
     //     file: {

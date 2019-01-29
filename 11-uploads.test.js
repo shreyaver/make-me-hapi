@@ -3,8 +3,8 @@ const fs = require('fs');
 const streamToPromise = require('stream-to-promise');
 const server = require('./11-uploads');
 
-describe('server at path "/login" with payload {isGuest: true, accessToken: <string>}', () => {
-  it('should return "login successful"', async () => {
+describe('server at path "/upload"', () => {
+  it('should return description and file on file upload', async () => {
     const fileStream = fs.createReadStream('fileToUpload.txt');
     const form = new FormData();
     form.append('description', 'This file will be uploaded');
